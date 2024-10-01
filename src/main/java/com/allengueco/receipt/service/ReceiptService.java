@@ -32,7 +32,7 @@ public class ReceiptService {
         if (receipt.isEmpty())
             return Optional.empty();
 
-        int points = receiptProcessor.process(receipt.get());
+        long points = receiptProcessor.process(receipt.get());
 
         if (points < 1)
             return Optional.empty();

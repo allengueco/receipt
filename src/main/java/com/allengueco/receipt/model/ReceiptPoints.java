@@ -1,5 +1,5 @@
 package com.allengueco.receipt.model;
 
-public record ReceiptPoints(int points) {
+public record ReceiptPoints(long points) {
 
 }
