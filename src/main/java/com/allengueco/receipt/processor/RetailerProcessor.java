@@ -13,8 +13,6 @@ public class RetailerProcessor implements AbstractProcessor {
     private final Logger log = LoggerFactory.getLogger(RetailerProcessor.class);
     @Override
     public long process(Receipt receipt) {
-        log.info("Starting retailer name processor for receiptId: {}", receipt.getId());
-
         int result = (int) receipt.getRetailer()
             .chars()
             .filter(Character::isLetterOrDigit)
