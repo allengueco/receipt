@@ -1,5 +1,7 @@
 package com.allengueco.receipt.model;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.hibernate.annotations.UuidGenerator;
@@ -17,9 +19,9 @@ public class Receipt {
 
     String retailer;
 
-    String purchaseDate;
+    LocalDate purchaseDate;
 
-    String purchaseTime;
+    LocalTime purchaseTime;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
     List<Item> items;
@@ -29,14 +31,10 @@ public class Receipt {
     public Receipt() {
     }
 
-    public Receipt(String id, String retailer, String purchaseOrder, String purchaseTime, List<Item> items,
-            String total) {
-        this.id = id;
-        this.retailer = retailer;
-        this.purchaseDate = purchaseOrder;
-        this.purchaseTime = purchaseTime;
-        this.items = items;
-        this.total = total;
+    @Override
+    public String toString() {
+        return "Receipt [id=" + id + ", retailer=" + retailer + ", purchaseOrder=" + purchaseDate + ", purchaseTime="
+                + purchaseTime + ", items=" + items + ", total=" + total + "]";
     }
 
     @Override
@@ -94,12 +92,6 @@ public class Receipt {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Receipt [id=" + id + ", retailer=" + retailer + ", purchaseOrder=" + purchaseDate + ", purchaseTime="
-                + purchaseTime + ", items=" + items + ", total=" + total + "]";
-    }
-
     public String getId() {
         return id;
     }
@@ -116,19 +108,19 @@ public class Receipt {
         this.retailer = retailer;
     }
 
-    public String getPurchaseDate() {
+    public LocalDate getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(String purchaseOrder) {
+    public void setPurchaseDate(LocalDate purchaseOrder) {
         this.purchaseDate = purchaseOrder;
     }
 
-    public String getPurchaseTime() {
+    public LocalTime getPurchaseTime() {
         return purchaseTime;
     }
 
-    public void setPurchaseTime(String purchaseTime) {
+    public void setPurchaseTime(LocalTime purchaseTime) {
         this.purchaseTime = purchaseTime;
     }
 

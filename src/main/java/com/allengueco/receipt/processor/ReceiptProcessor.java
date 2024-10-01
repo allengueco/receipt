@@ -25,8 +25,11 @@ public class ReceiptProcessor implements AbstractProcessor {
     public long process(Receipt receipt) {
         log.info("Starting process for receiptId: {}", receipt.getId());
 
-        return processors.stream()
+        long price = processors.stream()
                 .collect(Collectors.summingLong(p -> p.process(receipt)));
+
+        log.info("Bonus Points awarded: {}", price);
+        return price;
     }
 
 }
