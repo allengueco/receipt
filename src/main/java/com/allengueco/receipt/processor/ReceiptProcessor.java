@@ -26,7 +26,7 @@ public class ReceiptProcessor implements AbstractProcessor {
         log.info("Starting process for receiptId: {}", receipt.getId());
 
         return processors.stream()
-            .collect(Collectors.summingInt(p -> p.process(receipt)));
+                .collect(Collectors.summingInt(p -> p.process(receipt)));
     }
 
 }

@@ -17,23 +17,23 @@ public class Receipt {
 
     String retailer;
 
-    String purchaseOrder;
+    String purchaseDate;
 
     String purchaseTime;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
-    List<ReceiptItem> items;
+    List<Item> items;
 
     String total;
 
     public Receipt() {
     }
 
-    public Receipt(String id, String retailer, String purchaseOrder, String purchaseTime, List<ReceiptItem> items,
+    public Receipt(String id, String retailer, String purchaseOrder, String purchaseTime, List<Item> items,
             String total) {
         this.id = id;
         this.retailer = retailer;
-        this.purchaseOrder = purchaseOrder;
+        this.purchaseDate = purchaseOrder;
         this.purchaseTime = purchaseTime;
         this.items = items;
         this.total = total;
@@ -45,7 +45,7 @@ public class Receipt {
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((retailer == null) ? 0 : retailer.hashCode());
-        result = prime * result + ((purchaseOrder == null) ? 0 : purchaseOrder.hashCode());
+        result = prime * result + ((purchaseDate == null) ? 0 : purchaseDate.hashCode());
         result = prime * result + ((purchaseTime == null) ? 0 : purchaseTime.hashCode());
         result = prime * result + ((items == null) ? 0 : items.hashCode());
         result = prime * result + ((total == null) ? 0 : total.hashCode());
@@ -71,10 +71,10 @@ public class Receipt {
                 return false;
         } else if (!retailer.equals(other.retailer))
             return false;
-        if (purchaseOrder == null) {
-            if (other.purchaseOrder != null)
+        if (purchaseDate == null) {
+            if (other.purchaseDate != null)
                 return false;
-        } else if (!purchaseOrder.equals(other.purchaseOrder))
+        } else if (!purchaseDate.equals(other.purchaseDate))
             return false;
         if (purchaseTime == null) {
             if (other.purchaseTime != null)
@@ -96,7 +96,7 @@ public class Receipt {
 
     @Override
     public String toString() {
-        return "Receipt [id=" + id + ", retailer=" + retailer + ", purchaseOrder=" + purchaseOrder + ", purchaseTime="
+        return "Receipt [id=" + id + ", retailer=" + retailer + ", purchaseOrder=" + purchaseDate + ", purchaseTime="
                 + purchaseTime + ", items=" + items + ", total=" + total + "]";
     }
 
@@ -116,12 +116,12 @@ public class Receipt {
         this.retailer = retailer;
     }
 
-    public String getPurchaseOrder() {
-        return purchaseOrder;
+    public String getPurchaseDate() {
+        return purchaseDate;
     }
 
-    public void setPurchaseOrder(String purchaseOrder) {
-        this.purchaseOrder = purchaseOrder;
+    public void setPurchaseDate(String purchaseOrder) {
+        this.purchaseDate = purchaseOrder;
     }
 
     public String getPurchaseTime() {
@@ -132,11 +132,11 @@ public class Receipt {
         this.purchaseTime = purchaseTime;
     }
 
-    public List<ReceiptItem> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
-    public void setItems(List<ReceiptItem> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 

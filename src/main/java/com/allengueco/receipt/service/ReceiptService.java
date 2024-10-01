@@ -19,25 +19,23 @@ public class ReceiptService {
         this.receiptProcessor = receiptProcessor;
     }
 
-    Optional<Receipt> getReceipt(String id) {
+    public Optional<Receipt> getReceipt(String id) {
         return receiptRepository.findById(id);
     }
 
-    Optional<Receipt> processReceipt(Receipt receipt) {
-        if (receiptRepository.existsById(receipt.getId())) {
-            return receiptRepository.findById(receipt.getId());
-        } else {
-            return Optional.of(receiptRepository.save(receipt));
-        }
+    public Receipt processReceipt(Receipt receipt) {
+        return receiptRepository.save(receipt);
     }
 
-    Optional<ReceiptPoints> calculatePoints(String id) {
+    public Optional<ReceiptPoints> calculatePoints(String id) {
         var receipt = receiptRepository.findById(id);
-        if (receipt.isEmpty()) return Optional.empty();
+        if (receipt.isEmpty())
+            return Optional.empty();
 
         int points = receiptProcessor.process(receipt.get());
 
-        if (points < 1) return Optional.empty();
+        if (points < 1)
+            return Optional.empty();
 
         return Optional.of(new ReceiptPoints(points));
     }
