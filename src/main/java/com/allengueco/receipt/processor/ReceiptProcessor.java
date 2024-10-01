@@ -22,11 +22,11 @@ public class ReceiptProcessor implements AbstractProcessor {
     }
 
     @Override
-    public int process(Receipt receipt) {
+    public long process(Receipt receipt) {
         log.info("Starting process for receiptId: {}", receipt.getId());
 
         return processors.stream()
-                .collect(Collectors.summingInt(p -> p.process(receipt)));
+                .collect(Collectors.summingLong(p -> p.process(receipt)));
     }
 
 }

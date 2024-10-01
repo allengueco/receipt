@@ -31,6 +31,6 @@ public class ReceiptProcessorController {
 
     @GetMapping("/{id}/points")
     public ResponseEntity<ReceiptPoints> getReceiptPoints(@RequestParam String id) {
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.of(receiptService.calculatePoints(id));
     }
 }
