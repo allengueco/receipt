@@ -11,7 +11,7 @@ public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    Integer id;
+    String id;
 
     @Column(length = 1000)
     String shortDescription;
@@ -21,39 +21,10 @@ public class Item {
     public Item() {
     }
 
-    public Item(Integer id, String shortDescription, String price) {
+    public Item(String id, String shortDescription, String price) {
         this.id = id;
         this.shortDescription = shortDescription;
         this.price = price;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "ReceiptItem [id=" + id + ", shortDescription=" + shortDescription + ", price=" + price + "]";
     }
 
     @Override
@@ -91,5 +62,34 @@ public class Item {
         } else if (!price.equals(other.price))
             return false;
         return true;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "ReceiptItem [id=" + id + ", shortDescription=" + shortDescription + ", price=" + price + "]";
     }
 }
