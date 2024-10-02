@@ -10,6 +10,10 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Receipt {
@@ -17,15 +21,20 @@ public class Receipt {
     @UuidGenerator
     String id;
 
+    @Pattern(regexp = "^[\\w\\s\\-&]+$")
     String retailer;
 
+    @PastOrPresent
     LocalDate purchaseDate;
 
+    @PastOrPresent
     LocalTime purchaseTime;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
+    @Size(min = 1)
     List<Item> items;
 
+    @Pattern(regexp = "^\\d+\\.\\d{2}$")
     String total;
 
     public Receipt() {

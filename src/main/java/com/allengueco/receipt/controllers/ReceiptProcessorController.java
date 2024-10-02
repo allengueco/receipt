@@ -13,6 +13,8 @@ import com.allengueco.receipt.model.ReceiptId;
 import com.allengueco.receipt.model.ReceiptPoints;
 import com.allengueco.receipt.service.ReceiptService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/receipts/")
 public class ReceiptProcessorController {
@@ -23,7 +25,7 @@ public class ReceiptProcessorController {
     }
 
     @PostMapping("/process")
-    public ResponseEntity<ReceiptId> processReceipt(@RequestBody Receipt receipt) {
+    public ResponseEntity<ReceiptId> processReceipt(@RequestBody @Valid Receipt receipt) {
         Receipt r = receiptService.processReceipt(receipt);
 
         return ResponseEntity.ok(new ReceiptId(r.getId()));

@@ -5,23 +5,25 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class Item {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Integer id;
 
-    @Column(length = 1000)
+    @Pattern(regexp = "^[\\w\\s\\-]+$")
     String shortDescription;
-    @Column(length = 1000)
+
+    @Pattern(regexp = "^\\d+\\.\\d{2}$")
     String price;
 
     public Item() {
     }
 
-    public Item(String id, String shortDescription, String price) {
+    public Item(Integer id, String shortDescription, String price) {
         this.id = id;
         this.shortDescription = shortDescription;
         this.price = price;
@@ -64,11 +66,11 @@ public class Item {
         return true;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
