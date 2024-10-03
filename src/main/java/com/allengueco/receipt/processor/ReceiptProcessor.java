@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.allengueco.receipt.model.Receipt;
 
 @Component
+@Primary
 @Order(Ordered.HIGHEST_PRECEDENCE) // so we use this one first, which kicks off the rest of the pipeline
 public class ReceiptProcessor implements AbstractProcessor {
     private final Logger log = LoggerFactory.getLogger(ReceiptProcessor.class);

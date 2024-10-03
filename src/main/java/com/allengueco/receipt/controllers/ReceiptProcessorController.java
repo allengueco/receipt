@@ -1,5 +1,6 @@
 package com.allengueco.receipt.controllers;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ import com.allengueco.receipt.service.ReceiptService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/receipts/")
+@RequestMapping("/receipts")
 public class ReceiptProcessorController {
     ReceiptService receiptService;
 
@@ -24,14 +25,14 @@ public class ReceiptProcessorController {
         this.receiptService = receiptService;
     }
 
-    @PostMapping("/process")
+    @PostMapping(name = "/process", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReceiptId> processReceipt(@RequestBody @Valid Receipt receipt) {
         Receipt r = receiptService.processReceipt(receipt);
 
         return ResponseEntity.ok(new ReceiptId(r.getId()));
     }
 
-    @GetMapping("/{id}/points")
+    @GetMapping(name = "/{id}/points", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReceiptPoints> getReceiptPoints(@RequestParam String id) {
         return ResponseEntity.of(receiptService.calculatePoints(id));
     }

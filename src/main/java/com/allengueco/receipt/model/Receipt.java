@@ -2,6 +2,7 @@ package com.allengueco.receipt.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.UuidGenerator;
@@ -10,7 +11,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -30,9 +30,9 @@ public class Receipt {
     @PastOrPresent
     LocalTime purchaseTime;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @Size(min = 1)
-    List<Item> items;
+    List<Item> items = new ArrayList<>();
 
     @Pattern(regexp = "^\\d+\\.\\d{2}$")
     String total;
@@ -48,57 +48,18 @@ public class Receipt {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((retailer == null) ? 0 : retailer.hashCode());
-        result = prime * result + ((purchaseDate == null) ? 0 : purchaseDate.hashCode());
-        result = prime * result + ((purchaseTime == null) ? 0 : purchaseTime.hashCode());
-        result = prime * result + ((items == null) ? 0 : items.hashCode());
-        result = prime * result + ((total == null) ? 0 : total.hashCode());
-        return result;
+        return getClass().hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Receipt other = (Receipt) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (retailer == null) {
-            if (other.retailer != null)
-                return false;
-        } else if (!retailer.equals(other.retailer))
-            return false;
-        if (purchaseDate == null) {
-            if (other.purchaseDate != null)
-                return false;
-        } else if (!purchaseDate.equals(other.purchaseDate))
-            return false;
-        if (purchaseTime == null) {
-            if (other.purchaseTime != null)
-                return false;
-        } else if (!purchaseTime.equals(other.purchaseTime))
-            return false;
-        if (items == null) {
-            if (other.items != null)
-                return false;
-        } else if (!items.equals(other.items))
-            return false;
-        if (total == null) {
-            if (other.total != null)
-                return false;
-        } else if (!total.equals(other.total))
-            return false;
-        return true;
+       if (this == obj) return true;
+
+       if (!(obj instanceof Receipt)) return false;
+
+       Receipt other = (Receipt) obj;
+
+       return id != null && id.equals(other.getId()); 
     }
 
     public String getId() {

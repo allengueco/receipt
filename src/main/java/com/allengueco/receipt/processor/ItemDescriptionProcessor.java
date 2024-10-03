@@ -1,6 +1,5 @@
 package com.allengueco.receipt.processor;
 
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;

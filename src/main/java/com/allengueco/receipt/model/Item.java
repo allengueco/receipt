@@ -1,6 +1,5 @@
 package com.allengueco.receipt.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,10 +8,9 @@ import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class Item {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    Long id;
 
     @Pattern(regexp = "^[\\w\\s\\-]+$")
     String shortDescription;
@@ -23,57 +21,32 @@ public class Item {
     public Item() {
     }
 
-    public Item(Integer id, String shortDescription, String price) {
+    public Item(String shortDescription, String price) {
+        this.shortDescription = shortDescription;
+        this.price = price;
+    }
+
+    public Item(Long id, String shortDescription, String price) {
         this.id = id;
         this.shortDescription = shortDescription;
         this.price = price;
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((shortDescription == null) ? 0 : shortDescription.hashCode());
-        result = prime * result + ((price == null) ? 0 : price.hashCode());
-        return result;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+
+        if (!(obj instanceof Item)) return false;
+
+        Item other = (Item) obj;
+
+        return id != null && id.equals(other.getId());
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Item other = (Item) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (shortDescription == null) {
-            if (other.shortDescription != null)
-                return false;
-        } else if (!shortDescription.equals(other.shortDescription))
-            return false;
-        if (price == null) {
-            if (other.price != null)
-                return false;
-        } else if (!price.equals(other.price))
-            return false;
-        return true;
+    public int hashCode() {
+        return getClass().hashCode();
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getShortDescription() {
         return shortDescription;
     }
@@ -90,8 +63,11 @@ public class Item {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return "ReceiptItem [id=" + id + ", shortDescription=" + shortDescription + ", price=" + price + "]";
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
