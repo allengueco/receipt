@@ -32,7 +32,7 @@ public class ReceiptProcessorController {
         return ResponseEntity.ok(new ReceiptId(r.getId()));
     }
 
-    @GetMapping(path = "/{id}/points", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/{id}/points", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReceiptPoints> getReceiptPoints(@PathVariable("id") String id) {
         return ResponseEntity.of(receiptService.calculatePoints(id));
     }
