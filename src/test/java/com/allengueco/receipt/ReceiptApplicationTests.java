@@ -102,8 +102,7 @@ class ReceiptApplicationTests {
 
         assertNotNull(id.id());
 
-        mvc.perform(get("/receipts/{id}/points", id.id())
-                .contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/receipts/{id}/points", id.id()))
                 .andDo(print())
                 .andExpect(jsonPath("$.points").value(28))
                 .andExpect(status().isOk());
@@ -113,8 +112,7 @@ class ReceiptApplicationTests {
     @Test
     public void receiptDoesNotExist() throws Exception {
         String id = "abcdfefg";
-        mvc.perform(get("/receipts/{id}/points", id)
-                .contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/receipts/{id}/points", id))
                 .andExpect(status().isNotFound());
     }
 }
