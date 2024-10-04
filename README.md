@@ -41,8 +41,8 @@ The rewards calculation is not computed until the `/receipts/{id}/points` endpoi
 I use Hibernate as my ORM, and Spring JPA to interact with the database layer through the [ReceiptRepository](./src/main/java/com/allengueco/receipt/repository/ReceiptRepository.java).
 There are two main entites: [Receipt](./src/main/java/com/allengueco/receipt/model/Receipt.java) and [Item](./src/main/java/com/allengueco/receipt/model/Item.java).
 
-Aside from the defined `Regex`s defined in `api.yml`, I've also opted to put a `@PastOrPresent` validation on the `purchaseDate` and `purchaseTime` fields.
-Logically, all `Receipt`s to be processed would have already happened. This validation gets triggered when we hit the `/receipt/process` endpoint, and not when the object gets persisted.
+Aside from the defined `Regex`s defined in `api.yml`, I've also opted to put a `@PastOrPresent` validation on the `purchaseDate`.
+Logically, all `Receipt`s to be processed would have already happened.
 
 Here are some assumptions that I've had to make when mapping the entities:
 - A valid `Receipt` means it will be persisted.
@@ -54,6 +54,14 @@ Here are some assumptions that I've had to make when mapping the entities:
 ### Database layer
 I've configured an in-memory H2 Database. This makes it easier in the future to swap this out for an actual SQL database.
 There is an H2 console available at `http://localhost:8080/h2-console` upon startup.
-Currently it is configured without any password, so pressing `Connect` will give you access to the database.
+Currently it is configured without any password, so pressing `Connect` will give you access to the database. (See [application.yml](./src/main/resources/application.properties) for details) 
 
 ## Limitations / Areas for improvement
+
+This is missing a lot of tests. Input validation is missing for the request bodies.
+
+I also could have chosen to store the points of the `Receipt` whenever the `/receipts/{id}/points` is hit. 
+My main thought process was that amends (`PATCH` requests) could be done to add or remove items. 
+But realistically, if a change has to be made for a `Receipt`, we would make more sense to just generate a new one and store that.
+
+Since the points calculation is calculated every time `/receipts/{id}/points` is hit, we can implement a caching layer to make computation lighter. 
