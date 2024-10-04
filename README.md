@@ -1,9 +1,6 @@
 # Fetch Receipt Challenge Submission
 This is a Java 21 solution using Spring Boot and Hibernate. The default port is `8080`. 
 
-## Tests
-WIP
-
 ## Steps to run
 1) Clone the repository.
 ```shell
@@ -18,6 +15,11 @@ docker build -t receipt .
 3) Run the Docker Container.
 ```shell
 docker run -p 8080:8080 receipt
+```
+
+4) Wait for the server to start. It should say something like this:
+```
+Started ReceiptApplication in 2.592 seconds (process running for 2.807)
 ```
 
 For your convenience, I've exposed a Swagger UI in this path: `http://localhost:8080/swagger-ui/index.html`
@@ -55,6 +57,9 @@ Here are some assumptions that I've had to make when mapping the entities:
 I've configured an in-memory H2 Database. This makes it easier in the future to swap this out for an actual SQL database.
 There is an H2 console available at `http://localhost:8080/h2-console` upon startup.
 Currently it is configured without any password, so pressing `Connect` will give you access to the database. (See [application.yml](./src/main/resources/application.properties) for details) 
+
+## Tests
+There are some simple integration tests [here](src/test/java/com/allengueco/receipt/ReceiptApplicationTests.java).
 
 ## Limitations / Areas for improvement
 
