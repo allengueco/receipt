@@ -27,7 +27,6 @@ public class Receipt {
     @PastOrPresent
     LocalDate purchaseDate;
 
-    @PastOrPresent
     LocalTime purchaseTime;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
