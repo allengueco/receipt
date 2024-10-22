@@ -55,12 +55,12 @@ class ReceiptApplicationTests {
     }
 
     @Test
-    public void calculatePoints() throws Exception {
+    public void unique() throws Exception {
         var valid = """
                 {
                     "retailer": "Target",
                     "purchaseDate": "2022-01-01",
-                    "purchaseTime": "13:01",
+                    "purchaseTime": "14:01",
                     "items": [
                         {
                            "shortDescription": "Mountain Dew 12PK",
@@ -104,7 +104,7 @@ class ReceiptApplicationTests {
 
         mvc.perform(get("/receipts/{id}/points", id.id()))
                 .andDo(print())
-                .andExpect(jsonPath("$.points").value(28))
+                .andExpect(jsonPath("$.points").value(58))
                 .andExpect(status().isOk());
     }
 

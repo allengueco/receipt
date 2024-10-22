@@ -10,8 +10,8 @@ import com.allengueco.receipt.model.Receipt;
 @Component
 @Order(7)
 public class PurchaseTimeProcessor implements AbstractProcessor {
-    private final LocalTime TWO_PM = LocalTime.of(14, 00);
-    private final LocalTime FOUR_PM = LocalTime.of(16, 00);
+    private final LocalTime TWO_PM = LocalTime.of(14, 0);
+    private final LocalTime FOUR_PM = LocalTime.of(16, 0);
 
     @Override
     public long process(Receipt receipt) {
@@ -19,6 +19,15 @@ public class PurchaseTimeProcessor implements AbstractProcessor {
     }
 
     private boolean between(LocalTime time, LocalTime start, LocalTime end) {
-        return start.getHour() <= time.getHour() && time.getHour() <= end.getHour();
+        return betweenInclusive(time.getHour(), start.getHour(), end.getHour())
+                || betweenExclusive(time.getMinute(), start.getMinute(), end.getMinute());
+    }
+
+    private boolean betweenExclusive(int time, int start, int end) {
+        return start < time && time < end;
+    }
+
+    private boolean betweenInclusive(int time, int start, int end) {
+        return start <= time && time <= end;
     }
 }

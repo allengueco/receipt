@@ -43,6 +43,10 @@ public class Item {
         return id != null && id.equals(other.getId());
     }
 
+    public boolean isSame(Item i) {
+        return this.shortDescription.equals(i.shortDescription) && this.price.equals(i.price);
+    }
+
     @Override
     public int hashCode() {
         return getClass().hashCode();
